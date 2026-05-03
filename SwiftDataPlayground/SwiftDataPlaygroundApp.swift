@@ -5,6 +5,7 @@
 //  Created by Edwin Cardenas on 5/3/26.
 //
 
+import SwiftData
 import SwiftUI
 
 @main
@@ -13,5 +14,6 @@ struct SwiftDataPlaygroundApp: App {
         WindowGroup {
             ContentView()
         }
+        .modelContainer(for: User.self)
     }
 }
