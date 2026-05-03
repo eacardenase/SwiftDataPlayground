@@ -6,8 +6,13 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		20ED4FA22FA8097800D87923 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 20ED4FA12FA8097800D87923 /* README.md */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		20ED4F932FA8096100D87923 /* SwiftDataPlayground.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftDataPlayground.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		20ED4FA12FA8097800D87923 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -32,6 +37,7 @@
 		20ED4F8A2FA8096100D87923 = {
 			isa = PBXGroup;
 			children = (
+				20ED4FA12FA8097800D87923 /* README.md */,
 				20ED4F952FA8096100D87923 /* SwiftDataPlayground */,
 				20ED4F942FA8096100D87923 /* Products */,
 			);
@@ -109,6 +115,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				20ED4FA22FA8097800D87923 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
