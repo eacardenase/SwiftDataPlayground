@@ -10,7 +10,12 @@ import SwiftUI
 
 struct ContentView: View {
     @Environment(\.modelContext) var modelContext
-    @Query(sort: \User.name) var users: [User]
+    @Query(
+        filter: #Predicate<User> { user in
+            user.name.localizedStandardContains("R")
+        },
+        sort: \User.name
+    ) var users: [User]
     @State private var path = [User]()
 
     var body: some View {
