@@ -12,6 +12,7 @@ struct EditUserView: View {
     @Bindable var user: User
     @Environment(\.dismiss) var dismiss
     @Environment(\.modelContext) var modelContext
+    var isEditing = false
 
     var body: some View {
         Form {
@@ -31,7 +32,9 @@ struct EditUserView: View {
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
                 Button(role: .cancel) {
-                    modelContext.delete(user)
+                    if !isEditing && !user.isUserValid {
+                        modelContext.delete(user)
+                    }
 
                     dismiss()
                 }

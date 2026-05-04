@@ -15,29 +15,32 @@ struct ContentView: View {
 
     var body: some View {
         NavigationStack(path: $path) {
-            List(users) { user in
-                NavigationLink(value: user) {
-                    HStack(alignment: .lastTextBaseline) {
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text(user.name)
-                                .font(.headline)
+            List {
+                ForEach(users) { user in
+                    NavigationLink(value: user) {
+                        HStack(alignment: .lastTextBaseline) {
+                            VStack(alignment: .leading, spacing: 8) {
+                                Text(user.name)
+                                    .font(.headline)
 
-                            Text(user.city)
-                                .font(.subheadline)
+                                Text(user.city)
+                                    .font(.subheadline)
+                                    .foregroundStyle(.secondary)
+                            }
+
+                            Spacer()
+
+                            Text(user.joinDate, style: .date)
+                                .font(.callout)
                                 .foregroundStyle(.secondary)
                         }
-
-                        Spacer()
-
-                        Text(user.joinDate, style: .date)
-                            .font(.callout)
-                            .foregroundStyle(.secondary)
                     }
                 }
+                .onDelete(perform: deleteUser)
             }
             .navigationTitle("Users")
             .navigationDestination(for: User.self) { user in
-                EditUserView(user: user)
+                EditUserView(user: user, isEditing: user.isUserValid)
             }
             .toolbar {
                 Button("Add User", systemImage: "plus") {
@@ -48,6 +51,14 @@ struct ContentView: View {
                     path = [user]
                 }
             }
+        }
+    }
+
+    func deleteUser(at offsets: IndexSet) {
+        for offset in offsets {
+            let user = users[offset]
+
+            modelContext.delete(user)
         }
     }
 }
