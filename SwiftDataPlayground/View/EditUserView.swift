@@ -10,6 +10,8 @@ import SwiftUI
 
 struct EditUserView: View {
     @Bindable var user: User
+    @Environment(\.dismiss) var dismiss
+    @Environment(\.modelContext) var modelContext
 
     var body: some View {
         Form {
@@ -25,6 +27,23 @@ struct EditUserView: View {
         }
         .navigationTitle("Edit User")
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden()
+        .toolbar {
+            ToolbarItem(placement: .cancellationAction) {
+                Button(role: .cancel) {
+                    modelContext.delete(user)
+
+                    dismiss()
+                }
+            }
+
+            ToolbarItem(placement: .confirmationAction) {
+                Button(role: .confirm) {
+                    dismiss()
+                }
+                .disabled(!user.isUserValid)
+            }
+        }
     }
 }
 

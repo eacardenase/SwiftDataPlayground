@@ -29,7 +29,7 @@ struct ContentView: View {
 
                         Spacer()
 
-                        Text(user.joinDate, format: .dateTime.day().month().year())
+                        Text(user.joinDate, style: .date)
                             .font(.callout)
                             .foregroundStyle(.secondary)
                     }

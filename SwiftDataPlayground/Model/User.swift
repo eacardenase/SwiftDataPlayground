@@ -19,4 +19,9 @@ class User {
         self.city = city
         self.joinDate = joinDate
     }
+
+    var isUserValid: Bool {
+        return !name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+            && !city.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+    }
 }
