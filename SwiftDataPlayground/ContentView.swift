@@ -10,31 +10,28 @@ import SwiftUI
 
 struct ContentView: View {
     @Environment(\.modelContext) var modelContext
-    @Query(
-        filter: #Predicate<User> { user in
-            if user.name.localizedStandardContains("R") {
-                if user.city == "London" {
-                    return true
-                } else {
-                    return false
-                }
-            } else {
-                return false
-
-            }
-        },
-        sort: \User.name
-    ) var users: [User]
     @State private var path = [User]()
+    @State private var showingUpcomingOnly = false
 
     var body: some View {
         NavigationStack(path: $path) {
-            UsersView()
-                .navigationTitle("Users")
-                .navigationDestination(for: User.self) { user in
-                    EditUserView(user: user, isEditing: user.isUserValid)
+            UsersView(
+                minimumJoinDate: showingUpcomingOnly ? .now : .distantPast
+            )
+            .navigationTitle("Users")
+            .navigationDestination(for: User.self) { user in
+                EditUserView(user: user, isEditing: user.isUserValid)
+            }
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button(
+                        showingUpcomingOnly ? "Show Everyone" : "Show Upcoming"
+                    ) {
+                        showingUpcomingOnly.toggle()
+                    }
                 }
-                .toolbar {
+
+                ToolbarItem(placement: .topBarTrailing) {
                     Button("Add User", systemImage: "plus") {
                         let user = User(name: "", city: "", joinDate: .now)
 
@@ -43,6 +40,7 @@ struct ContentView: View {
                         path = [user]
                     }
                 }
+            }
         }
     }
 }

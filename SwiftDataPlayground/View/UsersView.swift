@@ -9,8 +9,17 @@ import SwiftData
 import SwiftUI
 
 struct UsersView: View {
-    @Query(sort: \User.name) var users: [User]
+    @Query var users: [User]
     @Environment(\.modelContext) var modelContext
+
+    init(minimumJoinDate: Date) {
+        _users = Query(
+            filter: #Predicate<User> { user in
+                user.joinDate >= minimumJoinDate
+            },
+            sort: \User.name
+        )
+    }
 
     var body: some View {
         List {
@@ -48,6 +57,6 @@ struct UsersView: View {
 }
 
 #Preview {
-    UsersView()
+    UsersView(minimumJoinDate: .now)
         .modelContainer(for: User.self)
 }
