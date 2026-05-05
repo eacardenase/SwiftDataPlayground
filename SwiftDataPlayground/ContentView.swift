@@ -20,7 +20,7 @@ struct ContentView: View {
                 }
             } else {
                 return false
-                
+
             }
         },
         sort: \User.name
@@ -29,50 +29,20 @@ struct ContentView: View {
 
     var body: some View {
         NavigationStack(path: $path) {
-            List {
-                ForEach(users) { user in
-                    NavigationLink(value: user) {
-                        HStack(alignment: .lastTextBaseline) {
-                            VStack(alignment: .leading, spacing: 8) {
-                                Text(user.name)
-                                    .font(.headline)
+            UsersView()
+                .navigationTitle("Users")
+                .navigationDestination(for: User.self) { user in
+                    EditUserView(user: user, isEditing: user.isUserValid)
+                }
+                .toolbar {
+                    Button("Add User", systemImage: "plus") {
+                        let user = User(name: "", city: "", joinDate: .now)
 
-                                Text(user.city)
-                                    .font(.subheadline)
-                                    .foregroundStyle(.secondary)
-                            }
+                        modelContext.insert(user)
 
-                            Spacer()
-
-                            Text(user.joinDate, style: .date)
-                                .font(.callout)
-                                .foregroundStyle(.secondary)
-                        }
+                        path = [user]
                     }
                 }
-                .onDelete(perform: deleteUser)
-            }
-            .navigationTitle("Users")
-            .navigationDestination(for: User.self) { user in
-                EditUserView(user: user, isEditing: user.isUserValid)
-            }
-            .toolbar {
-                Button("Add User", systemImage: "plus") {
-                    let user = User(name: "", city: "", joinDate: .now)
-
-                    modelContext.insert(user)
-
-                    path = [user]
-                }
-            }
-        }
-    }
-
-    func deleteUser(at offsets: IndexSet) {
-        for offset in offsets {
-            let user = users[offset]
-
-            modelContext.delete(user)
         }
     }
 }
