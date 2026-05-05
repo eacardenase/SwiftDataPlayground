@@ -12,12 +12,10 @@ struct UsersView: View {
     @Query var users: [User]
     @Environment(\.modelContext) var modelContext
 
-    init(minimumJoinDate: Date) {
+    init(minimumJoinDate: Date, sortOrder: [SortDescriptor<User>]) {
         _users = Query(
-            filter: #Predicate<User> { user in
-                user.joinDate >= minimumJoinDate
-            },
-            sort: \User.name
+            filter: #Predicate<User> { $0.joinDate >= minimumJoinDate },
+            sort: sortOrder
         )
     }
 
@@ -57,6 +55,6 @@ struct UsersView: View {
 }
 
 #Preview {
-    UsersView(minimumJoinDate: .now)
+    UsersView(minimumJoinDate: .now, sortOrder: [SortDescriptor(\User.name)])
         .modelContainer(for: User.self)
 }
