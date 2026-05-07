@@ -23,7 +23,7 @@ struct UsersView: View {
         List {
             ForEach(users) { user in
                 NavigationLink(value: user) {
-                    HStack(alignment: .lastTextBaseline) {
+                    HStack {
                         VStack(alignment: .leading, spacing: 8) {
                             Text(user.name)
                                 .font(.headline)
@@ -35,9 +35,13 @@ struct UsersView: View {
 
                         Spacer()
 
-                        Text(user.joinDate, style: .date)
-                            .font(.callout)
-                            .foregroundStyle(.secondary)
+                        Text(String(user.jobs.count))
+                            .fontWeight(.black)
+                            .padding(8)
+                            .background(.blue)
+                            .foregroundStyle(.white)
+                            .clipShape(.circle)
+
                     }
                 }
             }
