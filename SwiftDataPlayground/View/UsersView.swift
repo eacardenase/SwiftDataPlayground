@@ -35,7 +35,7 @@ struct UsersView: View {
 
                         Spacer()
 
-                        Text(String(user.jobs.count))
+                        Text(String(user.jobs?.count ?? 0))
                             .fontWeight(.black)
                             .padding(8)
                             .background(.blue)
