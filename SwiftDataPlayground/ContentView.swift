@@ -36,15 +36,12 @@ struct ContentView: View {
                     path = [user]
                 }
 
-                Menu("Filter", systemImage: "line.3.horizontal.decrease") {
+                Menu("More", systemImage: "ellipsis") {
                     Button(
                         showingUpcomingOnly ? "Show Everyone" : "Show Upcoming"
                     ) {
                         showingUpcomingOnly.toggle()
                     }
-                }
-
-                Menu("Sort", systemImage: "arrow.up.arrow.down") {
 
                     Picker("Sort", selection: $sortOrder) {
                         Text("Sort by Name")
